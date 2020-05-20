@@ -23,7 +23,7 @@ enum LearningWidgetType {
 
 // 导航栏Key内容
 const HomeAppBarKeyString = 'HomeAppBarKeyString';
-const HomeFloationActionButtonKeyString = 'HomeAppBarKeyString';
+const HomeFloationActionButtonKeyString = 'HomeFloationActionButtonKeyString';
 
 void main() => runApp(MyApp());
 
