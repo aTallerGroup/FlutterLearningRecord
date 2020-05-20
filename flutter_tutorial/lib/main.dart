@@ -21,6 +21,10 @@ enum LearningWidgetType {
   BottomNavigationBar,
 }
 
+// 导航栏Key内容
+const HomeAppBarKeyString = 'HomeAppBarKeyString';
+const HomeFloationActionButtonKeyString = 'HomeAppBarKeyString';
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -31,7 +35,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter 学习记录+学习记录'),
+      home: MyHomePage(title: 'Flutter 学习记录'),
     );
   }
 }
@@ -49,7 +53,14 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+          key: Key(HomeFloationActionButtonKeyString),
+          child: Icon(Icons.add),
+          onPressed: () {
+            print('FloationActionButton点击');
+          }),
       appBar: AppBar(
+        key: Key(HomeAppBarKeyString),
         title: Text(widget.title),
       ),
       // body: Center(child: otherColumn(),),

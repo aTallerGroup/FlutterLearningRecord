@@ -7,11 +7,36 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
 import 'package:flutter_tutorial/main.dart';
-import 'package:node_interop/stream.dart';
+import 'package:flutter_tutorial/testSourceCode/qi_counter.dart';
+import 'package:flutter_tutorial/testSourceCode/qi_network.dart';
+import 'package:dio/dio.dart';
 
-void main() {
+void testCounter() {
+  test('testCounter', () {
+    final counter = QiCounter();
+    expect(counter.countValue, 0);
+    expect(counter.increment(), 1);
+    expect(counter.increment(), 2);
+    expect(counter.decrease(), 1);
+  });
+}
+
+Future<Response> testNetwork() async {
+  Response response;
+  test('测试网络请求', () async {
+    String testURLString = 'https://api.github.com/orgs/flutterchina/repos';
+    // testURLString = 'https://api.myjson.com/bins/18mjgh';
+    response = await QiNetwork.request(urlString: testURLString);
+    // expect(response.statusCode, 200);
+    print(response.data.runtimeType);
+  });
+  return response;
+}
+
+void main() async {
+  testCounter();
+
   test('my first unit test', () {
     var answer = 68;
 
@@ -184,4 +209,8 @@ void main() {
     expect(find.text('1'), findsOneWidget);
     */
   });
+
+// 其他测试
+  // Response response = await testNetwork();
+  // print(response);
 }
