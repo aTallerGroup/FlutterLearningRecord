@@ -28,11 +28,14 @@ dependencies:
 
 dev_dependencies:
   flutter_test:
+  # flutter_driver:
     sdk: flutter
+    
   # 注意添加flutter_driver，如下三行代码是一个整体
-  flutter_driver:
-    sdk: flutter
-  test: any
+  # flutter_driver:
+  #   sdk: flutter
+  #   test: any
+  
 
 
 # For information on the generic Dart part of this file, see the

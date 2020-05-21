@@ -5,9 +5,7 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_tutorial/main.dart';
 import 'package:flutter_tutorial/testSourceCode/qi_counter.dart';
 import 'package:flutter_tutorial/testSourceCode/qi_network.dart';
 import 'package:dio/dio.dart';
@@ -22,20 +20,82 @@ void testCounter() {
   });
 }
 
-Future<Response> testNetwork() async {
+void testGroupCounter() {
+  group("Counter Group Test", () {
+    test('Counter初始化', () {
+      final counter = QiCounter();
+      expect(counter.countValue, 0);
+    });
+
+    test('Counter Increment', () {
+      final counter = QiCounter();
+      expect(counter.increment(), 1);
+      expect(counter.countValue, 1);
+    });
+
+    test('Counter Increment', () {
+      final counter = QiCounter();
+      expect(counter.increment(), 1);
+      expect(counter.decrease(), 0);
+      expect(counter.countValue, 0);
+      expect(counter.decrease(), -1);
+      expect(counter.countValue, -1);
+    });
+  });
+
+  test('testCounter', () {
+    final counter = QiCounter();
+    expect(counter.countValue, 0);
+    expect(counter.increment(), 1);
+    expect(counter.increment(), 2);
+    expect(counter.decrease(), 1);
+  });
+}
+
+Future<Response> testNetwork2() async {
   Response response;
   test('测试网络请求', () async {
     String testURLString = 'https://api.github.com/orgs/flutterchina/repos';
-    // testURLString = 'https://api.myjson.com/bins/18mjgh';
     response = await QiNetwork.request(urlString: testURLString);
-    // expect(response.statusCode, 200);
-    print(response.data.runtimeType);
+    expectLater(response.statusCode, 200);
   });
   return response;
 }
 
+Future testNetwork() async {
+  Response response;
+  test('测试网络请求', () async {
+    String testURLString = 'https://api.github.com/orgs/flutterchina/repos';
+    await QiNetwork.request(urlString: testURLString).then((value) {
+      response = value;
+      expectLater(response.statusCode, 200);
+      List responseList = response.data;
+      Map responseFirstListMap = responseList.first;
+      print(responseFirstListMap['name']);
+      expect(responseFirstListMap['name'], 'dio');
+    });
+  });
+}
+
 void main() async {
+  testNetwork();
+  testNetwork2();
+
   testCounter();
+  testGroupCounter();
+
+  test('my first unit test', () {
+    var answer = 68;
+
+    // 单元测试通过
+    expect(answer, 68);
+    // 单元测试失败
+    // expect(answer, 77);
+  });
+
+  test('测试描述信息', () {
+    // 待测试代码
+  });
 
   test('my first unit test', () {
     var answer = 68;
@@ -55,6 +115,11 @@ void main() async {
     var string = '  foo ';
     expect(string.trim(), equals('foo'));
   });
+
+  // group('groupTest', () {
+  //   test('test1', () {});
+  //   test('test2', () {});
+  // });
 
   group('String', () {
     test('.split() splits the string on the delimiter', () {
