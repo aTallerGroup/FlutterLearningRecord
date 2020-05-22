@@ -6,6 +6,7 @@ import 'AnimatedContainer/qi_AnimatedContainer.dart';
 import 'Opacity/qi_opacity.dart';
 import 'FutureBuilder/qi_futureBuilder.dart';
 import 'bottomNavigationBar/qi_bottomNavigationBar.dart';
+import 'demo/qi_demo.dart';
 
 // 业务代码
 import 'PersonalInfo/qi_personalInfo.dart';
@@ -19,6 +20,7 @@ enum LearningWidgetType {
   FutureBuilder,
   UnchangedPersonalInfo,
   BottomNavigationBar,
+  Demo,
 }
 
 // 导航栏Key内容
@@ -87,6 +89,7 @@ class _MyHomePageState extends State<MyHomePage> {
               widgetType: LearningWidgetType.UnchangedPersonalInfo),
           _sectionTypeListTile('BottomNavigationBar',
               widgetType: LearningWidgetType.BottomNavigationBar),
+          _sectionTypeListTile('Demo', widgetType: LearningWidgetType.Demo),
         ],
       ),
     );
@@ -248,6 +251,12 @@ class _MyHomePageState extends State<MyHomePage> {
             {
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (BuildContext context) => QiBottomNavigationBar()));
+            }
+            break;
+          case LearningWidgetType.Demo:
+            {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (BuildContext context) => QiDemo()));
             }
             break;
           default:
